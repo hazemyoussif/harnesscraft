@@ -1,7 +1,7 @@
 # HarnessCraft
 
 <p align="center">
-  <img src="assets/brand/scarab-circuit.svg" alt="HarnessCraft Scarab Circuit" width="320" />
+  <img src="assets/brand/harnesscraft-lockup-dark.svg" alt="HarnessCraft — Portable engineering judgment for AI coding harnesses" width="740" />
 </p>
 
 

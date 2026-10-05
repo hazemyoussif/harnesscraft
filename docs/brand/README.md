@@ -36,6 +36,23 @@ Tagline:
 
 > Portable engineering judgment for AI coding harnesses.
 
+## Visual assets
+
+The vector mark is a redraw of the top-center scarab in the approved reference. The horizontal lockup follows its lower-left logo treatment: scarab, two-tone **HarnessCraft**, and the two-line tagline. Circuit cutouts are transparent, so the mark adapts to its background.
+
+All assets live in [`../../assets/brand/`](../../assets/brand/). Each graphical asset has an SVG source and a PNG export at approximately 2.67× its SVG viewBox dimensions.
+
+| Asset | Use |
+|---|---|
+| `scarab-circuit.svg` / `.png` | Primary lavender-gradient mark on dark surfaces |
+| `scarab-circuit-light.svg` / `.png` | Royal Purple mark on light surfaces |
+| `scarab-circuit-monochrome.svg` / `.png` | White mark on dark or single-color surfaces |
+| `harnesscraft-lockup.svg` / `.png` | Transparent horizontal logo for dark surfaces |
+| `harnesscraft-lockup-dark.svg` / `.png` | Horizontal logo with Nile Dark background; README header |
+| `terminal-scarab.txt` | Text-native CLI mark inspired by the lower-left terminal example |
+
+The lockup SVG keeps editable text, using DejaVu Sans with Arial/sans-serif fallbacks. Its PNG export fixes the lettering for consistent display where those fonts are unavailable. Sora and Inter remain the preferred typefaces for future brand layouts.
+
 ## Terminal identity
 
 The terminal identity is deliberately text-native. It preserves the original Concept 2 Scarab Circuit proportions and cues rather than substituting a generic `HC` monogram.
@@ -43,17 +60,22 @@ The terminal identity is deliberately text-native. It preserves the original Con
 See [`../../assets/brand/terminal-scarab.txt`](../../assets/brand/terminal-scarab.txt).
 
 ```text
-              .-=-.
-             /  o  \
-          .-(  ___  )-.
-      _.-'  '-( o )-'  '-._
-  _.-'==o=====\ | /=====o=='-._
-<===-----------o|o-----------===>
-  '-._==o=====/ | \=====o==_.-'
-      '-._     | |     _.-'
-          \    |o|    /
-           \   | |   /
-            \__|_|__/
+                  _===_
+               .-' ___ '-.
+              /  /     \  \
+              \ (_______) /
+  `.___________\_________/___________.'
+   `===o========\   |   /========o==='
+    `===\========\  |  /========/==='
+     `===\========\ | /========/==='
+      `===o=======| | |=======o==='
+        `===\=====| | |=====/==='
+          `===\===( | )===/==='
+              \   \ | /   /
+               `.  \|/  .'
+                 \  |  /
+                  \ | /
+                   \|/
 ```
 
 This mark should be used for CLI help/startup surfaces where displaying the graphical logo is inappropriate or impossible.
