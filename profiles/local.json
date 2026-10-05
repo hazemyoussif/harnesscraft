@@ -1,0 +1,13 @@
+{
+  "id": "local",
+  "description": "Low-context profile for local coding models: strong engineering boundaries with few advertised tools.",
+  "skills": [
+    "harnesscraft-engineering-core",
+    "harnesscraft-architecture",
+    "harnesscraft-safe-delivery"
+  ],
+  "pi": {
+    "tools": ["hc_repo_context"],
+    "safetyGate": true
+  }
+}

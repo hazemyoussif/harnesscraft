@@ -1,0 +1,15 @@
+{
+  "id": "frontier",
+  "description": "Full v0.1 skill surface for strong frontier models and broad architecture/AI work.",
+  "skills": [
+    "harnesscraft-engineering-core",
+    "harnesscraft-architecture",
+    "harnesscraft-safe-delivery",
+    "harnesscraft-code-review",
+    "harnesscraft-ai-engineering"
+  ],
+  "pi": {
+    "tools": ["hc_repo_context", "hc_search_web"],
+    "safetyGate": true
+  }
+}

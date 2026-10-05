@@ -1,0 +1,64 @@
+{
+  "name": "@hazemyoussif/harnesscraft",
+  "version": "0.1.0",
+  "description": "Portable engineering judgment and lightweight capabilities for AI coding harnesses.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "harnesscraft": "./scripts/harnesscraft.mjs"
+  },
+  "scripts": {
+    "check": "npm run validate && npm test",
+    "validate": "node ./scripts/validate.mjs",
+    "test": "node --test ./tests/*.test.mjs",
+    "doctor": "node ./scripts/harnesscraft.mjs doctor"
+  },
+  "keywords": [
+    "agent-skills",
+    "coding-agent",
+    "pi-package",
+    "codex",
+    "claude-code",
+    "cursor",
+    "opencode",
+    "engineering"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hazemyoussif/harnesscraft.git"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "typebox": {
+      "optional": true
+    }
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/pi/index.ts"
+    ],
+    "skills": [
+      "./skills"
+    ]
+  },
+  "files": [
+    "assets",
+    "skills",
+    "extensions/pi",
+    "profiles",
+    "scripts",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ]
+}

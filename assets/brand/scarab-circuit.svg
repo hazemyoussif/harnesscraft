@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-labelledby="title desc">
+  <title id="title">HarnessCraft Scarab Circuit</title>
+  <desc id="desc">A modern winged scarab with circuit paths, inspired by ancient Egyptian scarab forms.</desc>
+  <defs>
+    <linearGradient id="hc-purple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E9D5FF"/>
+      <stop offset="0.48" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#6D28D9"/>
+    </linearGradient>
+    <filter id="hc-soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <g fill="none" stroke="url(#hc-purple)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- solar orb -->
+    <circle cx="400" cy="55" r="33" fill="url(#hc-purple)" stroke="none" filter="url(#hc-soft)"/>
+
+    <!-- horns / upper scarab -->
+    <path d="M372 114C337 104 322 79 326 48c11 28 29 42 53 47" stroke-width="18"/>
+    <path d="M428 114c35-10 50-35 46-66-11 28-29 42-53 47" stroke-width="18"/>
+
+    <!-- central body -->
+    <path d="M400 112c-65 0-94 42-94 101 0 44 20 80 51 104l43 35 43-35c31-24 51-60 51-104 0-59-29-101-94-101Z" fill="url(#hc-purple)" stroke="#160B2B" stroke-width="10"/>
+    <path d="M400 142v187" stroke="#160B2B" stroke-width="10"/>
+    <circle cx="400" cy="179" r="12" fill="#E9D5FF" stroke="#160B2B" stroke-width="8"/>
+    <circle cx="400" cy="258" r="12" fill="#A78BFA" stroke="#160B2B" stroke-width="8"/>
+    <path d="M358 317 400 356l42-39" stroke="#160B2B" stroke-width="10"/>
+
+    <!-- left wing silhouette -->
+    <g id="left-wing">
+      <path d="M306 151 235 117 105 112l54 47 98 23Z" fill="url(#hc-purple)" stroke="#160B2B" stroke-width="8"/>
+      <path d="M298 186 226 164 91 166l58 46 107 8Z" fill="url(#hc-purple)" stroke="#160B2B" stroke-width="8"/>
+      <path d="M301 222 222 208 116 222l58 38 92-5Z" fill="url(#hc-purple)" stroke="#160B2B" stroke-width="8"/>
+      <path d="M317 254 245 247 159 268l62 30 72-15Z" fill="url(#hc-purple)" stroke="#160B2B" stroke-width="8"/>
+
+      <!-- circuit traces -->
+      <path d="M303 166H242l-28-23h-58" stroke="#160B2B" stroke-width="9"/>
+      <circle cx="214" cy="143" r="8" fill="#E9D5FF" stroke="#160B2B" stroke-width="6"/>
+      <path d="M299 201h-80l-22-19h-61" stroke="#160B2B" stroke-width="9"/>
+      <circle cx="197" cy="182" r="8" fill="#E9D5FF" stroke="#160B2B" stroke-width="6"/>
+      <path d="M301 238h-69l-25 21h-44" stroke="#160B2B" stroke-width="9"/>
+      <circle cx="207" cy="259" r="8" fill="#E9D5FF" stroke="#160B2B" stroke-width="6"/>
+    </g>
+    <use href="#left-wing" transform="translate(800 0) scale(-1 1)"/>
+
+    <!-- lower shell -->
+    <path d="M349 326c-4 30 9 62 51 92 42-30 55-62 51-92" fill="url(#hc-purple)" stroke="#160B2B" stroke-width="10"/>
+    <path d="M400 353v55" stroke="#160B2B" stroke-width="9"/>
+  </g>
+</svg>

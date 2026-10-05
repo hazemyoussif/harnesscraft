@@ -1,0 +1,14 @@
+{
+  "id": "balanced",
+  "description": "Default profile for day-to-day software engineering.",
+  "skills": [
+    "harnesscraft-engineering-core",
+    "harnesscraft-architecture",
+    "harnesscraft-safe-delivery",
+    "harnesscraft-code-review"
+  ],
+  "pi": {
+    "tools": ["hc_repo_context", "hc_search_web"],
+    "safetyGate": true
+  }
+}

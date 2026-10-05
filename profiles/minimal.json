@@ -1,0 +1,12 @@
+{
+  "id": "minimal",
+  "description": "Smallest useful engineering surface for simple tasks and constrained models.",
+  "skills": [
+    "harnesscraft-engineering-core",
+    "harnesscraft-safe-delivery"
+  ],
+  "pi": {
+    "tools": ["hc_repo_context"],
+    "safetyGate": true
+  }
+}
