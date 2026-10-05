@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 340" role="img" aria-labelledby="title desc"><title id="title">HarnessCraft Scarab Circuit</title><desc id="desc">A symmetric winged scarab with a solar orb, swept segmented wings, and transparent circuit cutouts.</desc><defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 205" role="img" aria-labelledby="title desc"><title id="title">HarnessCraft</title><desc id="desc">HarnessCraft. Portable engineering judgment for AI coding harnesses.</desc><defs>
   <linearGradient id="purple" gradientUnits="userSpaceOnUse" x1="200" y1="0" x2="300" y2="340">
     <stop stop-color="#F7EDFF"/><stop offset=".35" stop-color="#D8B4FE"/>
     <stop offset=".7" stop-color="#A78BFA"/><stop offset="1" stop-color="#7C3AED"/>
@@ -19,7 +19,7 @@
       <circle cx="483" cy="145" r="18"/><circle cx="430" cy="199" r="18"/>
     </g>
   </mask>
-</defs><g mask="url(#cuts)" fill="url(#purple)">
+</defs><rect width="740" height="205" rx="16" fill="#0B0820"/><g transform="translate(16 43) scale(.34)"><g mask="url(#cuts)" fill="url(#purple)">
   <g id="wing">
     <path d="M199 150C177 148 169 129 150 123L45 99C23 93 9 84 9 74C8 99 9 116 32 122L130 135L156 159L198 160Z"/>
     <path d="M11 123C17 150 21 157 44 157L123 157L151 180L198 179V169L157 169L129 146L41 137Z"/>
@@ -48,4 +48,5 @@
     <circle cx="77" cy="145" r="9"/><circle cx="130" cy="199" r="9"/>
     <circle cx="483" cy="145" r="9"/><circle cx="430" cy="199" r="9"/>
   </g>
-</g></svg>
+</g></g><text x="218" y="104" font-family="DejaVu Sans, Arial, sans-serif" font-size="60" font-weight="700" letter-spacing="-2.5"><tspan fill="#FAF9FF">Harness</tspan><tspan fill="#A855F7">Craft</tspan></text>
+<g fill="#D8D8E9" font-family="DejaVu Sans, Arial, sans-serif" font-size="23"><text x="220" y="141">Portable engineering judgment</text><text x="220" y="173">for AI coding harnesses.</text></g></svg>
