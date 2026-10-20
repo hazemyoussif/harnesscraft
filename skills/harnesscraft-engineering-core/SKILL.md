@@ -18,6 +18,12 @@ Use this skill as the default engineering decision layer. It does not prescribe 
 7. **Optimize from evidence.** Measure or reproduce before introducing performance complexity.
 8. **Finish with evidence.** Passing tests are necessary, not sufficient. Verify the requested behavior, the relevant quality gates, and the final diff/architecture shape.
 
+- **Confirm the baseline.** Record branch, HEAD, worktree status, original requirement and current implementation before changing code; never assume a prior session's state remains current.
+- **Set a bounded acceptance target.** One cohesive milestone should define the observable result, invariants, exclusions and stopping condition. Avoid both open-ended missions and repeated tiny sessions that lose context.
+- **Investigate before prescribing.** For defects, reproduce or trace the failure and distinguish measurements, source evidence and hypotheses. If results contradict the hypothesis, stop and reassess rather than increasing timeouts or layering abstractions.
+- **Manage reasoning/tool cost.** Use focused reads and tests while iterating. Reuse established context, do not repeat unchanged searches/full suites without a reason, and escalate effort only for genuinely hard decisions.
+- **Check established solutions before inventing.** Inspect existing implementations, contracts, conventions, accepted ADRs, tests, utilities, and supported library capabilities before selecting an approach. Prefer proven project patterns; if they do not fit, identify the evidence-backed gap before designing something new. Never invent APIs, assumptions, or requirements.
+- **No hidden hardcoding or prescribed solution.** Do not bake environment-, tenant-, customer-, provider-, or deployment-specific assumptions into reusable behavior. Use the project's existing contracts, configuration, or domain-owned rules. Do not mandate a particular framework, pattern, or algorithm without evidence that the actual requirements justify it. Explicit, documented domain constants are not the same as accidental hardcoding.
 ## Before implementation
 
 Establish enough context to answer:

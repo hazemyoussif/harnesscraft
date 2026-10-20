@@ -14,6 +14,12 @@ Prefer evidence in this order:
 Do not promote a lower-confidence assumption to a fact because it makes implementation easier.
 
 ## Abstraction rule
+## Existing-pattern-first decision rule
+
+Before proposing a solution, search the affected repository for analogous working implementations and read the governing contracts, tests, ADRs, utilities and already-adopted dependencies. Check whether an established solution can meet the requirement without new infrastructure. Distinguish verified behavior from assumptions; do not make up methods, package capabilities, data fields, settings or business rules. If no suitable solution exists, document the concrete gap and choose the smallest compatible addition rather than imposing a preselected pattern.
+
+Avoid hardcoding incidental environment, customer, tenant, locale, date, endpoint, credential, provider or infrastructure assumptions into generic logic. Follow existing configuration and domain ownership. A fixed value required by a validated contract is acceptable when named, scoped and documented; unsupported magic values or silently substituted defaults are not.
+
 
 Abstract when at least one of these is true:
 
@@ -31,3 +37,11 @@ Refactor and behavior change should be separable when practical. If they must oc
 ## Production rule
 
 "Works locally" is not production readiness. Production concerns include authorization, tenancy, observability, failure handling, migrations, compatibility, recovery, operational ownership, and rollback where applicable.
+
+## Incident-to-prevention record
+
+For consequential failures, record briefly: observed symptom and scope; measured or reproduced evidence; root cause (or explicitly unresolved hypothesis); why existing verification missed it; smallest prevention; regression evidence; and unresolved runtime/business acceptance. Avoid turning an incident into a universal rule before its cause is established.
+
+## Delivery evidence hierarchy
+
+Use separate labels for implemented, focused-tested, repository-gates-passed, merged, deployed and business/runtime-accepted. Give the revision and environment associated with each claim. Missing results are **unverified**; do not imply passing CI proves deployment, or isolated benchmarks prove end-to-end performance.

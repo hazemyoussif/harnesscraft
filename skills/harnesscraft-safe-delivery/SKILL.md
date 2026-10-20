@@ -19,6 +19,20 @@ Use a delivery loop that produces evidence early and limits blast radius.
 8. Inspect the final diff and repository state.
 9. Report exact evidence: checks run, results, known omissions, branch/commit if relevant.
 
+## Completion is layered
+
+Report independently whether the change is **implemented**, **focused-test verified**, **full-gate verified**, **merged**, **deployed**, and **accepted in the target runtime/business workflow**. An unrun gate is *unverified*, not passed. A successful mapping microbenchmark is not an end-to-end pipeline result; a green CI run is not staging acceptance.
+
+For high-risk data or operational work, verify effective runtime permissions and configuration, data coverage, migrations, failure/recovery paths and business controls against the actual target environment. Do not repeat live ingestions, rewind cursors, or perform destructive database/infra work without the required approval and a recovery plan.
+
+## Performance investigation
+
+Trace each meaningful stage with grounded input/output cardinalities, timings, query counts and memory/materialization where relevant. Look for multiplicative joins, repeated scans, per-record I/O and unnecessary intermediate expansion before increasing batch size or timeouts. Benchmark a representative workload before and after, preserving correctness and transactional guarantees.
+
+## Bounded execution and handoff
+
+Prefer targeted tests during iteration, then required repository-wide gates at a defined milestone. When handing off, state the exact branch/SHA, objective, observed evidence, changes, command results, unverified checks, risks and next action without replaying the whole project history. Recheck the baseline on resumption.
+
 ## Consequential operations
 
 Explicit user approval is required before actions such as:

@@ -29,7 +29,17 @@ Prioritize findings by impact. For each meaningful issue, explain:
 
 Do not inflate a review with low-value nits when substantive issues exist.
 
+## Evidence and requirements audit
+
+Compare the diff and delivered behavior against the **original acceptance criteria**, not just the latest prompt or tests. Flag required capabilities silently postponed as enhancements. Verify that test assertions would fail against the prior defect where practical; distinguish shared-code agreement from independent reconciliation.
+
+For performance-sensitive paths, examine data cardinality through joins and transformations, repeated I/O and worst-case complexity. Separate stage-specific timings from end-to-end results. For sensitive state, explicitly check fail-closed empty scopes, permission creation/revocation and cache propagation, financial semantic definitions and independent controls, tenant isolation, immutable history and cursor correctness.
+
 ## Passing tests are not a waiver
+## Existing patterns and hardcoding review
+
+Check whether the change duplicates an established utility, adapter, contract or supported dependency; introduces invented APIs or unsupported assumptions; hardcodes incidental tenant/environment/provider/business values; or forces a preferred architecture where the repository already has a compatible solution. Require evidence of a genuine gap before accepting a new pattern. Do not flag intentional, documented domain constants as hardcoding without showing why they are wrong.
+
 
 A branch can have hundreds of passing tests and still have an architectural defect, missing authorization boundary, incorrect assumption, or untested failure mode. Treat tests as evidence, not authority.
 
