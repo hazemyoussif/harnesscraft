@@ -31,3 +31,11 @@ Refactor and behavior change should be separable when practical. If they must oc
 ## Production rule
 
 "Works locally" is not production readiness. Production concerns include authorization, tenancy, observability, failure handling, migrations, compatibility, recovery, operational ownership, and rollback where applicable.
+
+## Incident-to-prevention record
+
+For consequential failures, record briefly: observed symptom and scope; measured or reproduced evidence; root cause (or explicitly unresolved hypothesis); why existing verification missed it; smallest prevention; regression evidence; and unresolved runtime/business acceptance. Avoid turning an incident into a universal rule before its cause is established.
+
+## Delivery evidence hierarchy
+
+Use separate labels for implemented, focused-tested, repository-gates-passed, merged, deployed and business/runtime-accepted. Give the revision and environment associated with each claim. Missing results are **unverified**; do not imply passing CI proves deployment, or isolated benchmarks prove end-to-end performance.
