@@ -14,6 +14,12 @@ Prefer evidence in this order:
 Do not promote a lower-confidence assumption to a fact because it makes implementation easier.
 
 ## Abstraction rule
+## Existing-pattern-first decision rule
+
+Before proposing a solution, search the affected repository for analogous working implementations and read the governing contracts, tests, ADRs, utilities and already-adopted dependencies. Check whether an established solution can meet the requirement without new infrastructure. Distinguish verified behavior from assumptions; do not make up methods, package capabilities, data fields, settings or business rules. If no suitable solution exists, document the concrete gap and choose the smallest compatible addition rather than imposing a preselected pattern.
+
+Avoid hardcoding incidental environment, customer, tenant, locale, date, endpoint, credential, provider or infrastructure assumptions into generic logic. Follow existing configuration and domain ownership. A fixed value required by a validated contract is acceptable when named, scoped and documented; unsupported magic values or silently substituted defaults are not.
+
 
 Abstract when at least one of these is true:
 
