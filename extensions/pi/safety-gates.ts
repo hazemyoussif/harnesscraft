@@ -48,9 +48,29 @@ function isForcedBranchDelete(command: string): boolean {
   return false;
 }
 
+// True when any `git checkout` restores files rather than switching branches: a tree-ish plus paths,
+// or an argument that looks like a file (has an extension or a glob). Branch creation is left alone.
+function isPathCheckout(command: string): boolean {
+  for (const [, args] of command.matchAll(/\bgit\s+checkout\b([^\n;&|]*)/g)) {
+    const tokens = args.trim().split(/\s+/).filter(Boolean);
+    if (tokens.some((token) => ["-b", "-B", "--orphan"].includes(token))) continue;
+    const positional = tokens.filter((token) => !token.startsWith("-"));
+    if (positional.length > 1 || positional.some((token) => /\.[A-Za-z]\w*$/.test(token) || token.includes("*"))) return true;
+  }
+  return false;
+}
+
+// Drops git's global options so each check sees the subcommand: `git -C repo push` reads as `git push`.
+function withoutGitGlobalOptions(command: string): string {
+  return command.replace(
+    /\bgit((?:\s+(?:-[Cc]\s+\S+|--(?:git-dir|work-tree|namespace|config-env)(?:=\S+|\s+\S+)|--exec-path(?:=\S+)?|--no-pager|--paginate|-[pP]|--bare|--no-replace-objects|--no-optional-locks|--(?:literal|glob|noglob|icase)-pathspecs))+)(?=\s)/g,
+    "git",
+  );
+}
+
 export function detectRisk(command: string): Risk | null {
-  const c = command.trim();
-  if (/\bgit\s+push\b[^\n;&|]*\s(--force(-with-lease|-if-includes)?(=\S*)?|-[a-zA-Z]*f[a-zA-Z]*|\+\S+)(?=\s|$)/i.test(c)) {
+  const c = withoutGitGlobalOptions(command.trim());
+  if (/\bgit\s+push\b[^\n;&|]*\s(--force(-with-lease|-if-includes)?(=\S*)?|-[a-zA-Z]*f[a-zA-Z]*|["']?\+\S+)(?=\s|$)/i.test(c)) {
     return { label: "Force push", reason: "rewrites a remote branch and can discard shared history" };
   }
   if (/\bgit\s+push\b[^\n;&|]*\s(--delete|-d|--mirror|--prune|:\S+)(?=\s|$)/.test(c)) {
@@ -59,10 +79,15 @@ export function detectRisk(command: string): Risk | null {
   if (/\bgit\s+reset\s+--hard\b/i.test(c)) {
     return { label: "Hard reset", reason: "can discard uncommitted or local commit state" };
   }
-  if (/\bgit\s+clean\b[^\n]*\s-[^\s]*f/i.test(c)) {
+  if (/\bgit\s+clean\b[^\n;&|]*\s-[^\s]*f/i.test(c)) {
     return { label: "Destructive Git clean", reason: "can permanently delete untracked files" };
   }
-  if (/\bgit\s+checkout\b[^\n;&|]*\s(--|\.|-f|--force)(?=\s|$)/.test(c) || isWorktreeRestore(c)) {
+  if (
+    /\bgit\s+checkout\b[^\n;&|]*\s(--|\.|-f|--force)(?=\s|$)/.test(c) ||
+    isPathCheckout(c) ||
+    isWorktreeRestore(c) ||
+    /\bgit\s+switch\b[^\n;&|]*\s(--discard-changes|-f|--force)(?=\s|$)/.test(c)
+  ) {
     return { label: "Discard uncommitted changes", reason: "overwrites working-tree edits that Git cannot recover" };
   }
   if (/\bgit\s+stash\s+(drop|clear)\b/.test(c)) {
@@ -88,7 +113,10 @@ export function detectRisk(command: string): Risk | null {
   }
   if (
     /\b(drop\s+(database|schema|table)|truncate\s+table)\b/i.test(c) ||
-    /\b(rails|rake)\s+db:(drop|reset|purge|migrate:reset|schema:load|structure:load)\b/.test(c) ||
+    // SQL TRUNCATE without TABLE: only when the statement visibly ends, so `truncate -s 0 file` and prose stay out.
+    /\btruncate\s+(?:only\s+)?[\w."]+(?:\s*,\s*[\w."]+)*\s*(?:;|$|["']|\s+(?:cascade|restrict|restart|continue)\b)/i.test(c) ||
+    /\b(rails|rake)\s+db:(drop|reset|purge|migrate:reset|schema:load|structure:load|truncate_all|seed:replant)\b/.test(c) ||
+    /\bprisma\s+migrate\s+reset\b/.test(c) ||
     /\bdelete\s+from\s+[^\s;]+(?![^;]*\bwhere\b)/i.test(c)
   ) {
     return { label: "Destructive database operation", reason: "can irreversibly remove production or local data" };
@@ -102,7 +130,7 @@ export function detectRisk(command: string): Risk | null {
   if (/\b(npm|pnpm)\s+publish\b|\byarn\s+npm\s+publish\b/i.test(c)) {
     return { label: "Package publish", reason: "publishes an externally visible release" };
   }
-  if (/\bdocker\s+system\s+prune\b[^\n]*(-a|--all)/i.test(c)) {
+  if (/\bdocker\s+system\s+prune\b[^\n;&|]*\s(-[a-zA-Z]*a[a-zA-Z]*|--all)(?=\s|$)/.test(c)) {
     return { label: "Docker destructive prune", reason: "can remove images, containers, networks, and build cache" };
   }
   return null;
