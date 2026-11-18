@@ -29,7 +29,6 @@ function loadProfile(): Profile {
   const packaged = readJson(new URL(`../../profiles/${requested}.json`, import.meta.url));
   if (packaged) return packaged;
   if (selected && selected.id === requested) return selected;
-  if (selected) return selected;
 
   throw new Error(
     `HarnessCraft profile '${requested}' is unavailable. Reinstall the Pi adapter or set HARNESSCRAFT_PROFILE to an installed profile.`,
@@ -37,7 +36,19 @@ function loadProfile(): Profile {
 }
 
 export default function harnessCraft(pi: ExtensionAPI) {
-  const profile = loadProfile();
+  let profile: Profile;
+  try {
+    profile = loadProfile();
+  } catch (error) {
+    // Pi logs an extension that throws and runs on without it, so keep the gate on and report the problem instead.
+    registerSafetyGates(pi);
+    const message = `${error instanceof Error ? error.message : String(error)} The safety gate stays on; HarnessCraft tools are not loaded.`;
+    pi.on("session_start", async (_event, ctx) => {
+      if (ctx.hasUI) ctx.ui.notify(message, "error");
+      else console.error(message);
+    });
+    return;
+  }
   const tools = new Set(profile.pi?.tools ?? []);
 
   if (tools.has("hc_repo_context")) registerRepoContext(pi);

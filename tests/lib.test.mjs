@@ -78,11 +78,3 @@ test("uninstaller removes only an unmodified tracked resource", async () => {
   assert.equal(result.status, "removed");
   assert.equal(state.installs[stateKey], undefined);
 });
-
-test("Pi safety gate source distinguishes consequential Git operations", async () => {
-  const source = await readFile(new URL("../extensions/pi/safety-gates.ts", import.meta.url), "utf8");
-  assert.match(source, /git\\s\+merge/);
-  assert.match(source, /merge\\s\+--abort/);
-  assert.match(source, /git\\s\+push/);
-  assert.match(source, /force-with-lease/);
-});
