@@ -10,7 +10,7 @@ const skillDirs = (await readdir(skillRoot, { withFileTypes: true }))
   .sort();
 
 function parseFrontmatter(text) {
-  const match = text.match(/^---\n([\s\S]*?)\n---\n/);
+  const match = text.replace(/\r\n/g, "\n").match(/^---\n([\s\S]*?)\n---\n/);
   if (!match) return null;
   const values = {};
   for (const line of match[1].split("\n")) {
@@ -53,7 +53,7 @@ async function listMarkdown(dir) {
 function emptySections(text) {
   const headings = [];
   let fence = null;
-  for (const line of text.split("\n")) {
+  for (const line of text.split(/\r?\n/)) {
     const marker = /^\s*(`{3,}|~{3,})/.exec(line)?.[1];
     // A fence closes only on a marker of the same character that is at least as long as the opener.
     if (marker && (!fence || (marker[0] === fence[0] && marker.length >= fence.length))) {
@@ -103,8 +103,8 @@ for (const extension of packageJson.pi?.extensions ?? []) {
 }
 
 // Personal home directories on Linux, macOS and Windows.
-// Placeholders such as /home/<user>/ are allowed.
-const localPathPatterns = [/\/home\/[^/\s<>]+/, /\/Users\/[^/\s<>]+/, /\b[A-Za-z]:\\Users\\/i];
+// Placeholders such as /home/<user>/ are allowed; Windows paths match with single or JSON-escaped backslashes.
+const localPathPatterns = [/\/home\/[^/\s<>]+/, /\/Users\/[^/\s<>]+/, /\b[A-Za-z]:\\{1,2}Users\\/i];
 // Project-specific terms stay out of the repository: list them one per line in the gitignored .forbidden-terms file.
 const forbiddenTermsFile = path.join(ROOT, ".forbidden-terms");
 const forbiddenTerms = (await pathExists(forbiddenTermsFile))
